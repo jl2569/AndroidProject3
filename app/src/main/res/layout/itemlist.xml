@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:weightSum="1"
+    android:id="@+id/itemlist">
+
+    <TextView
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25dp"
+        android:id="@+id/textView3"
+        android:background="@android:color/white"
+        android:maxLines = "5"
+        android:scrollbars = "vertical"
+        android:layout_weight="0.48" />
+
+    <Button
+        android:text="Add Items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button4"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="92dp" />
+
+
+</RelativeLayout>
