@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -31,15 +32,19 @@ public class list extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.itemlist);
 
-        TextView title = (TextView) findViewById(R.id.textView5);
-        title.setText(listname);
         final TextView name = (TextView) findViewById(R.id.textView3);
         name.setMovementMethod(new ScrollingMovementMethod());
+        TextView title = (TextView) findViewById(R.id.textView5);
+        title.setText(listname);
         List<items> item = newdb.getAllitems(listname);
+
+        ListView listing = (ListView) findViewById(R.id.listview);
+
         for(items items : item){
             name.setText(name.getText()+items.getName() + " " + items.getAmount()+ "\n");
         }
-
+        listing tag = new listing(item,this);
+        listing.setAdapter(tag);
         relativeLayout = (RelativeLayout) findViewById(R.id.itemlist);
 
         Button Add = (Button) findViewById(R.id.button4);
@@ -60,10 +65,10 @@ public class list extends Activity {
                         String end = String.valueOf(name.getText());
                         String num = String.valueOf(amount.getText());
                         Log.d("Insert:","Inserting..");
-                        newdb.additems(new items(newdb.getItemsCount(listname)+1,end,Integer.parseInt(num)));
+                        newdb.additems(new items(newdb.getItemsCount(listname)+1,end,Integer.parseInt(num),1));
                         List<items> item = newdb.getAllitems(listname);
                         for (items items : item) {
-                            String log = "Id: " + items.getId() + ",Name: " + items.getName() + ",Amount: " + items.getAmount();
+                            String log = "Id: " + items.getId() + ",Name: " + items.getName() + ",Amount: " + items.getAmount() + ",Need: " + items.getNeed();
                             Log.d("Item: : ", log);
                         }
                         Intent intent = new Intent(v.getContext(),list.class);
@@ -77,6 +82,15 @@ public class list extends Activity {
                         return true;
                     }
                 });
+            }
+        });
+
+        Button Back = (Button) findViewById(R.id.button5);
+        Back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(),MainActivity.class);
+                startActivityForResult(intent,0);
             }
         });
 

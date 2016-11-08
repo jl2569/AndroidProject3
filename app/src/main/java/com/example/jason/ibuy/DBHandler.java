@@ -139,7 +139,8 @@ public class DBHandler extends SQLiteOpenHelper {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + listname + "("
                 + KEY_ID + " INTEGER PRIMARY KEY,"
                 + "item" + " TEXT,"
-                + "amount" + " TEXT "
+                + "amount" + " INTEGER,"
+                + "need" + " INTEGER "
                 + ");";
         db.execSQL(CREATE_CONTACTS_TABLE);
     }
@@ -165,6 +166,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 items item = new items();
                 item.setAmount(Integer.parseInt(cursor.getString(2)));
                 item.setName(cursor.getString(1));
+                item.setNeed(Integer.parseInt(cursor.getString(3)));
 
 // Adding contact to list
                 itemList.add(item);
@@ -181,6 +183,7 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put("amount", item.getAmount());
         values.put("id", item.getId());
         values.put("item", item.getName());
+        values.put("need",item.getNeed());
 
 
 // Inserting Row
@@ -191,12 +194,12 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(listname, new String[]{KEY_ID,"name",
-                        "amount"}, KEY_NAME + "=?",
+                        "amount","need"}, KEY_NAME + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
         items contact = new items(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1),Integer.parseInt(cursor.getString(2)));
+                cursor.getString(1),Integer.parseInt(cursor.getString(2)),Integer.parseInt(cursor.getString(3)));
 // return shop
         return contact;
     }
