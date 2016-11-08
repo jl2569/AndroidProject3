@@ -31,6 +31,8 @@ public class list extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.itemlist);
 
+        TextView title = (TextView) findViewById(R.id.textView5);
+        title.setText(listname);
         final TextView name = (TextView) findViewById(R.id.textView3);
         name.setMovementMethod(new ScrollingMovementMethod());
         List<items> item = newdb.getAllitems(listname);
