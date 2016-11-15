@@ -207,12 +207,18 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put("name", item.getName());
+        values.put("item", item.getName());
         values.put("amount", item.getAmount());
-
+        if (item.getNeed() == 1){
+            item.setNeed(0);
+            values.put("need", item.getNeed());
+        }else{
+            item.setNeed(1);
+            values.put("need", item.getNeed());
+        }
 // updating row
-        return db.update(name, values, KEY_ID + " = ?",
-                new String[]{String.valueOf(item.getId())});
+        return db.update(name, values, "item" + " = ?",
+                new String[]{String.valueOf(item.getName())});
     }
     public void deleteitems(items item, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
