@@ -190,11 +190,11 @@ public class DBHandler extends SQLiteOpenHelper {
         db.insert(listname, null, values);
         db.close(); // Closing database connection
     }
-    public items getitem(String id) {
+    public items getitem(CharSequence id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(listname, new String[]{KEY_ID,"name",
-                        "amount","need"}, KEY_NAME + "=?",
+        Cursor cursor = db.query(listname, new String[]{KEY_ID,"item",
+                        "amount","need"}, "item" + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -220,10 +220,9 @@ public class DBHandler extends SQLiteOpenHelper {
         return db.update(name, values, "item" + " = ?",
                 new String[]{String.valueOf(item.getName())});
     }
-    public void deleteitems(items item, String name) {
+    public void deleteitems(items item) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(name, KEY_ID + " = ?",
-                new String[] { String.valueOf(item.getId()) });
+        db.delete(listname, "item" + " = ?", new String[] { item.getName() });
         db.close();
     }
 }

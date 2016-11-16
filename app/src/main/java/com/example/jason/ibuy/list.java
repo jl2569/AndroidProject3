@@ -27,6 +27,9 @@ public class list extends Activity {
     private PopupWindow window;
     private LayoutInflater inflater;
     private RelativeLayout relativeLayout;
+    static listing tag ;
+
+    static Intent intent;
 
     protected void onCreate(final Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -43,7 +46,7 @@ public class list extends Activity {
         for(items items : item){
             name.setText(name.getText()+items.getName() + " " + items.getAmount()+ "\n");
         }
-        listing tag = new listing(item,this);
+        tag = new listing(item,this);
         listing.setAdapter(tag);
         relativeLayout = (RelativeLayout) findViewById(R.id.itemlist);
 
@@ -71,7 +74,7 @@ public class list extends Activity {
                             String log = "Id: " + items.getId() + ",Name: " + items.getName() + ",Amount: " + items.getAmount() + ",Need: " + items.getNeed();
                             Log.d("Item: : ", log);
                         }
-                        Intent intent = new Intent(v.getContext(),list.class);
+                        intent = new Intent(v.getContext(),list.class);
                         startActivityForResult(intent,0);
                     }
                 });
